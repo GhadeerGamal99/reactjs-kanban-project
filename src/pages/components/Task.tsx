@@ -1,7 +1,6 @@
-import { useRef, type HTMLAttributes } from "react"
+import { memo, useMemo, useRef, type HTMLAttributes } from "react"
 import { useDrag } from "react-dnd"
 import type { ITaskType } from "../../types"
-import { useGetTasks } from "../../hooks/useGetTasks"
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -10,16 +9,16 @@ import Chip from "@mui/material/Chip"
 import Stack from "@mui/material/Stack"
 import { getStatusClassColor } from "../../utils/taskHelpers"
 
-
-const Task = ({ id, title, description, priority ,...rest }: ITaskType & HTMLAttributes<HTMLDivElement>) => {
+interface TaskProps extends ITaskType, Omit<HTMLAttributes<HTMLDivElement>, 'id' | 'title'> {
+    index: number;
+}
+const Task = ({ id, index, title, description, priority, ...rest }: TaskProps) => {
 
     const ref = useRef<HTMLDivElement>(null);
-    const { data } = useGetTasks();
-    const actualIndex = data?.map(t => t.id === id)
-    const className= getStatusClassColor(priority);
+    const className = useMemo(() => {getStatusClassColor(priority)}, [priority]);
     const [{ isDragging }, drag] = useDrag({
         type: 'TASK',
-        item: { id, actualIndex },
+        item: { id, index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging()
         })
@@ -46,10 +45,10 @@ const Task = ({ id, title, description, priority ,...rest }: ITaskType & HTMLAtt
                     </Typography>
                     <Box className="mt-3">
                         <Stack direction="row" spacing={1} >
-                            <Chip label={priority} className={`!font-semibold [&>.MuiChip-label]:!text-[13px] rounded-md! ${className}`}  />
+                            <Chip label={priority} className={`!font-semibold [&>.MuiChip-label]:!text-[13px] rounded-md! ${className}`} />
                         </Stack>
                         <div >
-                           
+
                         </div>
                     </Box>
                 </CardContent>
@@ -58,4 +57,4 @@ const Task = ({ id, title, description, priority ,...rest }: ITaskType & HTMLAtt
     )
 }
 
-export default Task
+export default memo(Task)

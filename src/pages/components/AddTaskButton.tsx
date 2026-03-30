@@ -1,6 +1,7 @@
 import { Button, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import type { columnNameType } from '../../types';
+import { memo } from 'react';
 
 
 interface AddTaskButtonProps {
@@ -35,4 +36,4 @@ const AddTaskButton = ({ columnName, onClick }: AddTaskButtonProps) => {
     );
 };
 
-export default AddTaskButton;
+export default memo(AddTaskButton) ;

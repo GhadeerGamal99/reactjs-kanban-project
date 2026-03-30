@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { columnNameType } from '../../types';
 import { getBullColumnColor } from '../../utils/taskHelpers';
 import Badge from '@mui/material/Badge';
@@ -23,4 +24,4 @@ const ColumnBadge = ({ columnName, colLength }: IColBadge) => {
     )
 }
 
-export default ColumnBadge
+export default memo(ColumnBadge) 

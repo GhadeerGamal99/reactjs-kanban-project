@@ -10,6 +10,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import {
     FormControl, InputLabel, Select, MenuItem, FormHelperText, Button, CircularProgress
 } from '@mui/material';
+import { memo } from 'react';
 
 interface FormAddTaskProps {
     onSuccessClose?: () => void;
@@ -113,4 +114,4 @@ const FormAddTask = ({ onSuccessClose, currentColumn }: FormAddTaskProps) => {
     )
 }
 
-export default FormAddTask
+export default memo(FormAddTask)

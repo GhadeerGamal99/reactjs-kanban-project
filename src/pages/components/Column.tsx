@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer';
 import { useDrop } from 'react-dnd';
 import { useDebounce } from 'use-debounce';
@@ -32,7 +32,6 @@ const Column = ({ columnName }: IColumnProps) => {
     const [isModalUpdateTaskOpen, setIsModalUpdateTaskOpen] = useState(false);
     const [updateItem, SetUpdateItem] = useState<ITaskType>()
     const [currentColumn, setCurrentColumn] = useState<columnNameType>()
-    const colLength = data?.pages.map(page => page.items)
 
     useEffect(() => {
         if (inView && hasNextPage && !isFetchingNextPage) {
@@ -40,9 +39,22 @@ const Column = ({ columnName }: IColumnProps) => {
         }
     }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-    //////////////////////// RENDERS //////////////////////////
+    const colLength = useMemo(() => {
+        return data?.pages.flatMap(page => page.items) || [0];
+    }, [data?.pages]);
+
 
     ////////////////////////// HANDLERS /////////////////////////////////
+    const handleTaskClick = useCallback((task: ITaskType) => {
+        SetUpdateItem(task)
+        setIsModalUpdateTaskOpen(true)
+    }, []);
+
+    const handleAddTaskClick = useCallback((col:columnNameType) => {
+        setCurrentColumn(col);
+        setIsModalAddTaskOpen(true);
+    }, []);
+
     //////////drop
     const { mutate: updateTask } = useUpdateTaskColumn();
     const [, drop] = useDrop<DragItem>({
@@ -61,24 +73,15 @@ const Column = ({ columnName }: IColumnProps) => {
 
             {data?.pages.map((page, pageIndex) => (
                 <div key={pageIndex}>
-                    {page.data.map((task) => (
-                        <div key={task.id}>
-                            <Task id={task.id} priority={task.priority} title={task.title}
-                                description={task.description} column={task.column} onClick={() => {
-                                    SetUpdateItem(task)
-                                    setIsModalUpdateTaskOpen(true)
-                                }} />
-                        </div>
+                    {page.data.map((task ,index) => (
+                        <Task key={task.id} index={index} {...task} onClick={() => handleTaskClick(task)} />
                     ))}
                 </div>
             ))}
 
             <AddTaskButton
                 columnName={columnName}
-                onClick={(name) => {
-                    setCurrentColumn(name);
-                    setIsModalAddTaskOpen(true);
-                }}
+                onClick={()=>handleAddTaskClick(columnName)}
             />
 
             {/* ////////////////////////////INDICATOR TO INFINITE SCROLL/////////////////////////// */}
@@ -121,4 +124,4 @@ const Column = ({ columnName }: IColumnProps) => {
     )
 }
 
-export default Column
+export default memo(Column) 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -215,4 +215,4 @@ const FormUpdateTask = ({ onSuccessClose, updateItem }: FormUpdateTaskProps) => 
     )
 }
 
-export default FormUpdateTask
+export default memo(FormUpdateTask) 
