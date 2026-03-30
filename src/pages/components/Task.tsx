@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef, type HTMLAttributes } from "react"
+import { memo, useRef, type HTMLAttributes } from "react"
 import { useDrag } from "react-dnd"
 import type { ITaskType } from "../../types"
 import Box from '@mui/material/Box';
@@ -15,7 +15,7 @@ interface TaskProps extends ITaskType, Omit<HTMLAttributes<HTMLDivElement>, 'id'
 const Task = ({ id, index, title, description, priority, ...rest }: TaskProps) => {
 
     const ref = useRef<HTMLDivElement>(null);
-    const className = useMemo(() => {getStatusClassColor(priority)}, [priority]);
+    const className = getStatusClassColor(priority);
     const [{ isDragging }, drag] = useDrag({
         type: 'TASK',
         item: { id, index },
@@ -45,7 +45,7 @@ const Task = ({ id, index, title, description, priority, ...rest }: TaskProps) =
                     </Typography>
                     <Box className="mt-3">
                         <Stack direction="row" spacing={1} >
-                            <Chip label={priority} className={`!font-semibold [&>.MuiChip-label]:!text-[13px] rounded-md! ${className}`} />
+                            <Chip label={priority} className={`!font-semibold [&>.MuiChip-label]:!text-[12px] rounded-md! ${className}`} />
                         </Stack>
                         <div >
 

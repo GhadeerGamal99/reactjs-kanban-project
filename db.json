@@ -18,7 +18,7 @@
       "id": "3",
       "title": "Add card",
       "description": "add Feature to card",
-      "column": "in_review",
+      "column": "done",
       "priority": "MEDIUM"
     },
     {
@@ -43,11 +43,11 @@
       "id": "wkD2CEyODeU"
     },
     {
-      "title": "helloooo",
-      "description": "",
+      "title": "performance",
+      "description": "edit performance ",
       "priority": "HIGH",
-      "id": "wlj8gLLITx4",
-      "column": "done"
+      "id": "vxkvlXArYxA",
+      "column": "in_progress"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
