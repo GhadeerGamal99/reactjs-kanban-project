@@ -179,7 +179,7 @@ const FormUpdateTask = ({ onSuccessClose, updateItem }: FormUpdateTaskProps) => 
                 {errors.column && <FormHelperText>{errors.column.message}</FormHelperText>}
             </FormControl>
 
-            <div className='!ml-auto flex gap-3'>
+            <div className='!ml-auto flex flex-wrap gap-3'>
 
                 <Button
                     type="button"

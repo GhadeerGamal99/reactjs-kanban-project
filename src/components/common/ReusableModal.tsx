@@ -31,7 +31,7 @@ const ReusableModal: React.FC<ReusableModalProps> = ({
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={{ ...style, width }}>
+      <Box sx={{ ...style }} className={`w-[90%] md:!max-w-[500px] md:!w-[${width}px]`}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
           <Typography variant="h6" component="h2">
             {title}
