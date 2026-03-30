@@ -20,6 +20,7 @@ const AddTaskButton = ({ columnName, onClick }: AddTaskButtonProps) => {
                     borderColor: 'var(--border-primary)',
                     backgroundColor: '#ffffff00',
                     textTransform: 'none',
+                    height:'40px',
                     '&:hover': {
                         backgroundColor: 'var(--bg-low)',
                         borderColor: 'var(--border-primary)',

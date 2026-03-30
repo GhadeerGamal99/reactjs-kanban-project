@@ -42,7 +42,7 @@ const FormAddTask = ({ onSuccessClose, currentColumn }: FormAddTaskProps) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-7 border rounded-lg flex flex-col gap-3">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4  border rounded-lg flex flex-col gap-3  p-5 md:p-7">
             <div className='m-0 '>
                 <input
                     {...register("title")}
