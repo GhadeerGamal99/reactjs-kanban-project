@@ -25,6 +25,7 @@ const Column = ({ columnName }: IColumnProps) => {
     const globalSearchQuery = useSelector((state: RootState) => state.search.query);
     const [debouncedSearch] = useDebounce(globalSearchQuery, 500);
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetTaskByCol(columnName, debouncedSearch);
+    console.log(data)
     const { ref, inView } = useInView();
     const refDrop = useRef<HTMLDivElement>(null);
     ////////modal states
@@ -40,8 +41,8 @@ const Column = ({ columnName }: IColumnProps) => {
     }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
     const colLength = useMemo(() => {
-        return data?.pages.flatMap(page => page.items) || [0];
-    }, [data?.pages]);
+         return data?.pages.flat().length
+    }, [data]);
 
 
     ////////////////////////// HANDLERS /////////////////////////////////
@@ -69,15 +70,22 @@ const Column = ({ columnName }: IColumnProps) => {
 
     return (
         <div ref={refDrop} className='flex-col bg-bg-secondary p-5 min-w-[325px] !min-h-full rounded-md'>
-            <ColumnBadge colLength={colLength || [0]} columnName={columnName}></ColumnBadge>
+            <ColumnBadge colLength={colLength || 0} columnName={columnName}></ColumnBadge>
 
-            {data?.pages.map((page, pageIndex) => (
-                <div key={pageIndex}>
-                    {page.data.map((task ,index) => (
-                        <Task key={task.id} index={index} {...task} onClick={() => handleTaskClick(task)} />
-                    ))}
-                </div>
-            ))}
+      
+{data?.pages.map((page: any, pageIndex) => (
+    <div key={pageIndex}>
+ 
+        {Array.isArray(page) && page.map((task, index) => (
+            <Task 
+                key={task.id} 
+                index={index} 
+                {...task} 
+                onClick={() => handleTaskClick(task)} 
+            />
+        ))}
+    </div>
+))}
 
             <AddTaskButton
                 columnName={columnName}

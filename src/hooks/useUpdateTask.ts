@@ -7,7 +7,7 @@ export const useUpdateTask = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (updatedTask: ITaskType) => {
-      return api.patch(`/tasks/${updatedTask.id}`, updatedTask);
+      return api.put(`/tasks/${updatedTask.id}`, updatedTask);
     },
     onMutate: async (updatedTask) => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });

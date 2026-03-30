@@ -34,13 +34,13 @@ const Task = ({ id, index, title, description, priority, ...rest }: TaskProps) =
             }}
             className="rounded-2xl mb-3"
         >
-            <Card sx={{ Width: 295 }}>
+            <Card sx={{ Width: 295,maxWidth:295 }}>
                 <CardContent>
                     <Typography gutterBottom className="text-text-primary font-regular text-18" >
                         {title}
                     </Typography>
 
-                    <Typography variant="body2" className="text-text-secondary tex-18">
+                    <Typography variant="body2" className="text-text-secondary tex-18 !line-clamp-3">
                         {description}
                     </Typography>
                     <Box className="mt-3">
