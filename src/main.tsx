@@ -11,6 +11,7 @@ import { store } from './store/index.ts'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

@@ -25,9 +25,8 @@ const Board = () => {
     const columns:columnNameType[]=['backlog','in_progress','review','done']
 
   return (
-    <div>
+    <div className="flex flex-wrap justify-center min-h-[85vh] gap-4 mx-8 my-4">
         {columns.map(col=>(<Column key={col} columnName={col}/>))}
-     
    </div>
   )
 }

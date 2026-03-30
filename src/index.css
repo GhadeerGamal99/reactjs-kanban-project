@@ -4,27 +4,27 @@
 @custom-variant dark (&:is(.dark *));
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: 'Poppins'!important;
   src: url('./assets/fonts/Poppins-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./assets/fonts/Poppins-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
+  font-family: 'Poppins' !important;
+  src: url('./assets/fonts/Poppins-Medium.ttf') format('truetype') !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
 }
 
 @font-face {
-  font-family: 'Poppins';
+  font-family: 'Poppins'!important;
   src: url('./assets/fonts/Poppins-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Poppins';
+  font-family: 'Poppins'!important;
   src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
@@ -32,9 +32,10 @@
 
 @theme inline {
   
-   --font-sans: 'Poppins', sans-serif;
+   --font-sans: 'Poppins', sans-serif !important;
 
   /* font-size */
+  --text-12
   --text-18: 1.125rem;
   --text-20: 1.25rem;
   --text-21: 1.3125rem;
@@ -44,40 +45,38 @@
   --text-40: 2.5rem;
   --text-51: 3.1875rem;
   
-
-  /* Gray text */
-  --color-text-primary-gray: var(--text-primary-gray);
-  --color-text-secondary-gray: var(--text-secondary-gray);
-  --color-text-muted-gray: var(--text-muted-gray);
-  --color-text-label-gray: var(--text-label-gray);
-  --color-text-icon-gray: var(--text-icon-gray);
+--font-regular 
+--font-medium 
+--font-semibold
+--font-bold
 
 
 
-  /* Gray backgrounds */
-  --color-bg-primary-gray: var(--bg-primary-gray);
-  --color-bg-secondary-gray: var(--bg-secondary-gray);
-  --color-bg-muted-gray: var(--bg-muted-gray);
-  --color-bg-muted-gray: var(--bg-muted-gray);
-  --color-bg-icon-gray: var(--bg-icon-gray);
-
-  /* Gray borders */
-  --color-border-primary-gray: var(--border-primary-gray);
-    --color-border-separator-gray: var(--border-separator-gray);
-
-  /* Blue text */
-  --color-text-primary-blue: var(--text-primary-blue);
-  --color-text-secondary-blue: var(--text-secondary-blue);
-  --color-text-muted-blue: var(--text-muted-blue);
-
-  /* Blue backgrounds */
-  --color-bg-primary-blue: var(--bg-primary-blue);
-  --color-bg-secondary-blue: var(--bg-secondary-blue);
+  /* text color*/
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-high: var(--text-high);
+  --color-text-medium: var(--text-medium);
+  --color-text-low: var(--text-low);
 
 
-  /* Blue borders */
-  --color-border-primary-blue: var(--border-primary-blue);
-  --color-border-secondary-blue: var(--border-secondary-blue);
+  /* backgrounds color*/
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-high: var(--bg-high);
+  --color-bg-medium: var(--bg-medium);
+  --color-bg-low: var(--bg-low);
+  --color-bg-muted: var(--bg-muted);
+  --color-bg-toDo: var(--bg-toDo);
+  --color-bg-inProgress: var(--bg-inProgress);
+  --color-bg-inReview: var(--bg-inReview);
+  --color-bg-done: var(--bg-done);
+
+  /* borders color*/
+  --color-border-primary: var(--border-primary);
+ 
+
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -120,34 +119,36 @@
 }
 
 :root {
-  /* Gray scale */
+
   /* text-color */
-  --text-primary-gray: #111928;
-  --text-secondary-gray: #4b5563;
-  --text-muted-gray: #6b7280;
+  --text-primary: #111928;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+
   --text-label-gray: #373737;
    --text-icon-gray: #9CA3AF;
-  /* bg-color */
-  --bg-primary-gray: #f4f4f4;
-  --bg-secondary-gray: #6b7280;
-  --bg-muted-gray: #f3f4f6;
-  --bg-separator-gray: #373737;
-  --bg-icon-gray: #9CA3AF;
-  /* border-color */
-  --border-primary-gray: #9CA3AF;
-  --border-separator-gray: #373737;
 
-  /* Blue scale */
-  /* text-color */
-  --text-primary-blue: #1e429f;
-  --text-secondary-blue: #1a56db;
-  --text-muted-blue: #1c64f2;
+  --text-high: #dc3545;
+  --text-medium: #D97F30;
+   --text-low: #212529;
   /* bg-color */
-   --bg-primary-blue: #1e429f;
-  --bg-secondary-blue: #ebf5ff;
+  --bg-primary: #F5F5F5;
+  --bg-secondary: #EBF0F0;
+
+  --bg-high: #F0D2D2;
+  --bg-medium: #F5E6D2;
+  --bg-low: #E6E6EB;
+  --bg-muted: #E6E6EB;
+  --bg-toDo: #3C64D7;
+  --bg-inProgress: #D97F30;
+  --bg-inReview: #8449BF;
+  --bg-done: #3E8C68;
+
+
   /* border-color */
-  --border-primary-blue: #1e429f;
-  --border-secondary-blue: #0069ab;
+  --border-primary: #b8bdc7;
+
+
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -184,38 +185,33 @@
 }
 
 .dark {
-  /* Gray scale */
   /* text-color */
-  --text-primary-gray: #e5e7eb;
-  --text-secondary-gray: #9ca3af;
-  --text-muted-gray: #6b7280;
-  --text-label-gray: #d1d5db;
-  --text-icon-gray: #4b5563;
 
+  --text-primary: #F5F5F5;
+  --text-secondary: #EBF0F0;
+  --text-muted: #EBF0F0;
+  
+
+  --text-high: #dc3545;
+  --text-medium: #ffc107;
+   --text-low: #212529;
   /* bg-color */
-  --bg-primary-gray: #1f1f1f;
-  --bg-secondary-gray: #2c2c2c;
-   --bg-muted-gray: #373737;
-  --bg-icon-gray: #4b5563;
+  --bg-primary: #4b5563;
+  --bg-secondary: #111928;
+  --bg-high: #F0D2D2;
+  --bg-medium: #F2B988;
+  --bg-low: #E6E6EB;
+  --bg-muted: #E6E6EB;
+  --bg-toDo: #3C64D7;
+  --bg-inProgress: #D97F30;
+  --bg-inReview: #8449BF;
+  --bg-done: #E6E6EB;
+
+
+  /* border-color */
+  --border-primary: #EBEBED;
+
  
-
-  /* border-color */
-  --border-primary-gray: #4b5563;
-  --border-separator-gray: #d1d5db;
-
-  /* Blue scale */
-  /* text-color */
-  --text-primary-blue: #93c5fd;
-  --text-secondary-blue: #60a5fa;
-  --text-muted-blue: #3b82f6;
-
-  /* bg-color */
---bg-primary-blue: #1e3a8a;
-  --bg-secondary-blue: #1e40af;
-
-  /* border-color */
-  --border-primary-blue: #2563eb;
-  --border-secondary-blue: #3b82f6;
 
   --text-primary: oklch(0.985 0 0);
   --text-secondary: oklch(0.708 0 0);
@@ -259,44 +255,63 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family:'Poppins', sans-serif !important;
   }
 
   body {
     @apply bg-background text-foreground;
+    background-color: var(--bg-primary);
+
   }
 }
 @layer utilities {
+  .text-12 {
+    font-size: var(--text-12)!important;
+  }
   .text-18 {
-    font-size: var(--text-18);
+    font-size: var(--text-18)!important;
   }
 
   .text-20 {
-    font-size: var(--text-20);
+    font-size: var(--text-20)!important;
   }
 
   .text-21 {
-    font-size: var(--text-21);
+    font-size: var(--text-21)!important;
   }
 
   .text-22 {
-    font-size: var(--text-22);
+    font-size: var(--text-22)!important;
   }
 
   .text-25 {
-    font-size: var(--text-25);
+    font-size: var(--text-25)!important;
   }
 
   .text-28 {
-    font-size: var(--text-28);
+    font-size: var(--text-28)!important;
   }
 
   .text-40 {
-    font-size: var(--text-40);
+    font-size: var(--text-40)!important;
   }
 
   .text-51 {
-    font-size: var(--text-51);
+    font-size: var(--text-51) !important;
   }
+  .font-regular {
+    font-weight:400!important;
+  }
+  .font-medium {
+    font-weight: 500!important;
+  }
+  .font-semibold {
+    font-weight: 600!important;
+  }
+  .font-bold {
+    font-weight: 700!important;
+  }
+
 
   /* Hide scrollbar but keep scroll functionality */
   .no-scrollbar::-webkit-scrollbar {

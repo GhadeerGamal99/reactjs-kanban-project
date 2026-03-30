@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { Toaster } from 'react-hot-toast';
 import './App.css'
 import Board from './pages/components/Board';
-import SearchBar from './components/common/SearchBar';
+import NavBar from './components/common/NavBar';
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-<SearchBar></SearchBar>
+<NavBar></NavBar>
       <Board></Board>
       <Toaster />
     </>
