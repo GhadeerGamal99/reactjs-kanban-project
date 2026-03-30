@@ -5,12 +5,12 @@ const NavBar = () => {
     const {data}=useGetTasks()
     return (
         <nav className="w-[95%] m-auto border-b">
-            <div className="flex justify-between w-full my-5">
+            <div className="flex justify-around md:justify-between w-full my-5">
                 <div className="flex">
                     <img src="/image/trelloLogo.png" alt="trello logo" className="h-10 w-10" />
                     <div className="flex flex-col ml-3">
-                        <h2 className="text-text-primary text-[14px]"> KANBAN BOARD</h2>
-                        <p className="text-text-secondary text-[14px]">Tasks {data?.length ||0}</p>
+                        <h2 className="text-text-primary text-[14px] hidden md:block"> KANBAN BOARD</h2>
+                        <p className="text-text-secondary text-[14px] hidden md:block">Tasks {data?.length ||0}</p>
                     </div>
                 </div>
                 <SearchBar></SearchBar>
