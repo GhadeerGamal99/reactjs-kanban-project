@@ -16,7 +16,7 @@ interface IDragItem {
     id: string;
     type: string
 }
-const Task = ({ id, title, description, status }: ITaskType) => {
+const Task = ({ id, title, description, priority }: ITaskType) => {
 
     const dispatch = useDispatch<AppDispatch>()
     const { data } = useGetTasks();
@@ -50,8 +50,8 @@ const Task = ({ id, title, description, status }: ITaskType) => {
     drag(ref)
     // drag(drop(ref))
 
-    const getStatusClass = (status: string) => {
-        switch (status) {
+    const getStatusClass = (periority: string) => {
+        switch (periority) {
             case 'HIGH': return '!bg-bg-high !text-text-high';
             case 'LOW': return '!bg-bg-low !text-text-low';
             default: return '!bg-bg-medium !text-text-medium';
@@ -79,7 +79,7 @@ const Task = ({ id, title, description, status }: ITaskType) => {
                     </Typography>
                     <Box className="mt-3">
                         <Stack direction="row" spacing={1} >
-                            <Chip label={status} className={`!font-semibold [&>.MuiChip-label]:!text-[13px] rounded-md! ${getStatusClass(status)}`}  />
+                            <Chip label={priority} className={`!font-semibold [&>.MuiChip-label]:!text-[13px] rounded-md! ${getStatusClass(priority)}`}  />
 
                         </Stack>
                         <div >

@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import './App.css'
 import Board from './pages/components/Board';
 import NavBar from './components/common/NavBar';
+
 function App() {
   const [count, setCount] = useState(0)
 

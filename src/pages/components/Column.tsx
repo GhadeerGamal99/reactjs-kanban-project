@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer';
 import Button from '@mui/material/Button';
 import { useDrop } from 'react-dnd';
 import { useGetTaskByCol } from '../../hooks/useGetTaskByCol';
-import type { columnNameType } from '../../types';
+import type { columnNameType, taskPeriorityType } from '../../types';
 import Task from './Task';
 import { useUpdateTaskColumn } from '../../hooks/useUpdateTaskCol';
 import { useSelector } from 'react-redux';
@@ -12,6 +12,13 @@ import { useDebounce } from 'use-debounce';
 import AddIcon from '@mui/icons-material/Add';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
+import ReusableModal from '../../components/common/ReusableModal';
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { type SelectChangeEvent } from '@mui/material/Select';
+import FormAddTask from './FormAddTask';
 
 interface IColumnProps {
     columnName: columnNameType;
@@ -30,6 +37,7 @@ const Column = ({ columnName }: IColumnProps) => {
     const colLength = data?.pages.map(page => page.items)
     const refDrop = useRef<HTMLDivElement>(null);
 
+
     useEffect(() => {
         if (inView && hasNextPage && !isFetchingNextPage) {
             fetchNextPage();
@@ -46,7 +54,16 @@ const Column = ({ columnName }: IColumnProps) => {
 
     })
     drop(refDrop)
+    ////////modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [periority, setPeriority] = useState('');
 
+    const handleChange = (event: SelectChangeEvent) => {
+        setPeriority(event.target.value as string);
+    };
+    const periorityArr: taskPeriorityType[] = ['HIGH', 'LOW', 'MEDIUM']
+    const columns: columnNameType[] = ['backlog', 'in_progress', 'review', 'done']
+    /////////
     const getBullColumnColor = (columnName: columnNameType) => {
         switch (columnName) {
             case 'review': return '!bg-bg-inReview ';
@@ -74,7 +91,7 @@ const Column = ({ columnName }: IColumnProps) => {
                 <div key={pageIndex}>
                     {page.data.map((task) => (
                         <div key={task.id}>
-                            <Task id={task.id} status={task.status} title={task.title} description={task.description} column={task.column} />
+                            <Task id={task.id} priority={task.priority} title={task.title} description={task.description} column={task.column} />
                         </div>
                     ))}
                 </div>
@@ -82,11 +99,11 @@ const Column = ({ columnName }: IColumnProps) => {
 
             <div ref={ref}>
                 {isFetchingNextPage ?
-                    <Button loading loadingIndicator="Loading…" variant="text">
-
-                    </Button> : hasNextPage ? <Button loading loadingIndicator="Loading…" variant="text">
-
-                    </Button> : ""
+                    <>
+                        <Button loading variant="text">
+                        </Button><span className="text-text-secondary ml-[-15px]">Loading…</span></> : hasNextPage ? <>
+                            <Button loading variant="text">
+                            </Button><span className="text-text-secondary ml-[-15px]">Loading…</span></> : ""
                 }
             </div>
             <Stack direction="row" spacing={2}>
@@ -104,12 +121,22 @@ const Column = ({ columnName }: IColumnProps) => {
                     startIcon={<AddIcon />}
                     variant="outlined"
 
-                // className='text-text-secondary! !border border-border-primary! !bg-bg-done hover:!bg-bg-primary border-dashed!'
-                className='!m-0'
+                    // className='text-text-secondary! !border border-border-primary! !bg-bg-done hover:!bg-bg-primary border-dashed!'
+                    className='!m-0'
+                    onClick={() => setIsModalOpen(true)}
                 >
                     Add task
                 </Button>
             </Stack>
+
+            <ReusableModal
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title="Create New Task"
+                width={500}
+            >
+                <FormAddTask></FormAddTask>
+            </ReusableModal>
         </div>
 
     )
