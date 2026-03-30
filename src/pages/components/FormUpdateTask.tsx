@@ -60,7 +60,7 @@ const FormUpdateTask = ({ onSuccessClose, updateItem }: FormUpdateTaskProps) => 
         });
     }
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 border rounded-lg flex flex-col gap-3 p-7">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 border rounded-lg flex flex-col gap-3 p-5 md:p-7">
             <ConfirmDeleteDialog
                 open={isConfirmOpen}
                 onClose={() => setIsConfirmOpen(false)}
@@ -179,7 +179,7 @@ const FormUpdateTask = ({ onSuccessClose, updateItem }: FormUpdateTaskProps) => 
                 {errors.column && <FormHelperText>{errors.column.message}</FormHelperText>}
             </FormControl>
 
-            <div className='!ml-auto flex flex-wrap gap-3'>
+            <div className='!ml-auto flex flex-wrap justify-end gap-3'>
 
                 <Button
                     type="button"
