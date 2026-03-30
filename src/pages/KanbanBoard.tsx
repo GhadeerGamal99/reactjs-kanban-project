@@ -1,4 +1,5 @@
-import Layout from "../components/layout/layout"
+
+import Layout from "../components/layout/Layout"
 import Board from "./components/Board"
 
 const KanbanBoard = () => {

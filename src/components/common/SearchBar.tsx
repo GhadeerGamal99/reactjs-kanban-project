@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchQuery } from "../../features/searchfield/searchSlice";
+import { setSearchQuery } from "../../store/slices/searchSlice";
 import type { RootState } from "../../store";
 
 

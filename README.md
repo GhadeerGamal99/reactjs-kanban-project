@@ -1,73 +1,43 @@
-# React + TypeScript + Vite
+## ✨ Features
+* **Interactive Kanban Board:** Smooth drag-and-drop using `react-dnd`.
+* **Infinite Scrolling:** Dynamic data fetching with `TanStack Query`.
+* **Real-time Search:** Filter tasks instantly across all columns.
+* **Responsive UI:** Modern design using Tailwind CSS and MUI.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Tech Stack
+- **Framework:** React 18 (TypeScript)
+- **State Management:** Redux Toolkit & React Query
+- **Styling:** Tailwind CSS & Material UI
+- **Backend:** MockAPI.io (RESTful API)
 
-Currently, two official plugins are available:
+## 💡 Challenges Faced
+- **CORS & PATCH Issues:** Overcame MockAPI limitations by switching to `PUT` requests and ensuring full object updates.
+- **Client-side Pagination:** Implemented manual slicing and filtering within `useInfiniteQuery` to provide a smooth scrolling experience despite API constraints.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📂 Project Structure
 
-## React Compiler
+This project follows a **Modular Clean Architecture** to ensure separation of concerns, high maintainability, and scalability.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Directory | Responsibility |
+| :--- | :--- |
+| 🧩 **components/** | Pure UI components (Atomic design: Buttons, Modals, Inputs). |
+| 📄 **pages/** | Main application views and high-level route components. |
+| ⚓ **hooks/** | Custom React Query hooks (Server State) and complex logic. |
+| 🧠 **store/** | Redux Toolkit setup, global slices (Search, UI state). |
+| ⚙️ **config/** | Axios instances, API base URLs, and environment settings. |
+| 🛠️ **utils/** | Pure helper functions (Formatters, Date logic, calculations). |
+| 📍 **consts/** | Application-wide constants (Endpoints, Column names, Enums). |
+| 🛡️ **schemas/** | Data validation schemas (e.g., Zod/Yup) for forms and API safety. |
+| 🏷️ **types/** | Global TypeScript interfaces and shared type definitions. |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🏗️ Why this structure?
+- **Scalability:** New features can be added without bloating the existing codebase.
+- **Testability:** Logic is separated from UI, making it easier to write unit tests.
+- **Maintainability:** Finding and fixing bugs is faster when every file has a clear, single responsibility.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## ⚙️ Installation & Setup
+1. Clone the repository.
+2. Run `npm install` to install dependencies.
+3. Run `npm run dev` to start the local development server.

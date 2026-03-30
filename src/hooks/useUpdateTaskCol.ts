@@ -7,7 +7,7 @@ export const useUpdateTaskColumn = () => {
 
   return useMutation({
     mutationFn: async ({ id, newColumn }: { id: string; newColumn: columnNameType }) => {
-      const response = await api.patch(`/tasks/${id}`, { column: newColumn });
+      const response = await api.put(`/tasks/${id}`, { column: newColumn });
       return response.data;
     },
     onSuccess: () => {

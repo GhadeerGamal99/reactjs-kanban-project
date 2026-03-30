@@ -4,7 +4,7 @@ import { getBullColumnColor } from '../../utils/taskHelpers';
 import Badge from '@mui/material/Badge';
 
 interface IColBadge {
-    colLength: number[];
+    colLength: number;
     columnName: columnNameType
 }
 const ColumnBadge = ({ columnName, colLength }: IColBadge) => {

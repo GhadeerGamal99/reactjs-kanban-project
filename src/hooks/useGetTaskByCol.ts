@@ -1,20 +1,32 @@
 import {
   useInfiniteQuery,
-  type InfiniteData,
 } from "@tanstack/react-query";
-import axios from "axios";
-import type { columnNameType, ITaskResponse } from "../types";
+import type { columnNameType, ITaskType } from "../types";
+import api from "../config/axios.config";
 
-export const useGetTaskByCol = (columnName: columnNameType,searchTerm:string="") => {
-  return useInfiniteQuery<ITaskResponse,Error,InfiniteData<ITaskResponse>>({
-    queryKey: ["tasks", columnName,searchTerm],
-    queryFn: async ({ pageParam = 1}) => {
-      const response = await axios.get(
-        `http://localhost:4000/tasks?column=${columnName}&title_contains=${searchTerm}&_page=${pageParam}&_per_page=5`,
-      );
-      return response.data;
+export const useGetTaskByCol = (columnName: columnNameType, searchTerm: string = "") => {
+  return useInfiniteQuery<ITaskType[], Error>({
+    queryKey: ["tasks", columnName, searchTerm],
+    queryFn: async ({ pageParam = 1 }) => {
+   
+      const response = await api.get('/tasks'); 
+      const allTasks: ITaskType[] = response.data;
+
+
+      const filteredTasks = allTasks.filter(task => {
+        const matchesColumn = task.column === columnName;
+        const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchesColumn && matchesSearch;
+      });
+
+  
+      const limit = 5;
+      const startIndex = ((pageParam as number) - 1) * limit;
+      return filteredTasks.slice(startIndex, startIndex + limit);
     },
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.next ?? undefined,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length === 5 ? allPages.length + 1 : undefined;
+    },
   });
 };
