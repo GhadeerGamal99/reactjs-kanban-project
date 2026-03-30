@@ -1,0 +1,54 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Design homepage",
+      "description": "Include hero section",
+      "column": "in_progress",
+      "priority": "LOW"
+    },
+    {
+      "id": "2",
+      "title": "Design profiler to user",
+      "description": "add profiler",
+      "column": "in_review",
+      "priority": "LOW"
+    },
+    {
+      "id": "3",
+      "title": "Add card",
+      "description": "add Feature to card",
+      "column": "done",
+      "priority": "MEDIUM"
+    },
+    {
+      "id": "4",
+      "title": "Design product",
+      "description": "Include product section",
+      "column": "done",
+      "priority": "HIGH"
+    },
+    {
+      "id": "5",
+      "title": "Design product",
+      "description": "Include product section",
+      "column": "backlog",
+      "priority": "HIGH"
+    },
+    {
+      "title": "create form",
+      "description": "add form and validation",
+      "priority": "HIGH",
+      "column": "in_progress",
+      "id": "wkD2CEyODeU"
+    },
+    {
+      "title": "performance",
+      "description": "edit performance ",
+      "priority": "HIGH",
+      "id": "vxkvlXArYxA",
+      "column": "in_progress"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
