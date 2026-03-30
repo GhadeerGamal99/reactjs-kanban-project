@@ -41,3 +41,8 @@ This project follows a **Modular Clean Architecture** to ensure separation of co
 1. Clone the repository.
 2. Run `npm install` to install dependencies.
 3. Run `npm run dev` to start the local development server.
+
+# 📋 Kanban Flow
+A professional Task Management Dashboard with Drag & Drop and Infinite Scrolling.
+
+### [🚀 Live Demo](https://reactjs-kanban-project.vercel.app/)
