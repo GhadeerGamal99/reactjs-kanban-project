@@ -1,45 +1,22 @@
-import { useDispatch } from "react-redux"
-import type { ITaskType } from "../../types"
-import type { AppDispatch } from "../../store"
-import { useGetTasks } from "../../hooks/useGetTasks"
-import { useEffect, useRef } from "react"
+import { useRef, type HTMLAttributes } from "react"
 import { useDrag } from "react-dnd"
+import type { ITaskType } from "../../types"
+import { useGetTasks } from "../../hooks/useGetTasks"
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Chip from "@mui/material/Chip"
 import Stack from "@mui/material/Stack"
+import { getStatusClassColor } from "../../utils/taskHelpers"
 
-interface IDragItem {
-    index: number;
-    id: string;
-    type: string
-}
-const Task = ({ id, title, description, priority }: ITaskType) => {
 
-    const dispatch = useDispatch<AppDispatch>()
-    const { data } = useGetTasks();
-    useEffect(() => {
-    }, [data, dispatch])
-
-    const actualIndex = data?.map(t => t.id === id)
+const Task = ({ id, title, description, priority ,...rest }: ITaskType & HTMLAttributes<HTMLDivElement>) => {
 
     const ref = useRef<HTMLDivElement>(null);
-
-    // const [, drop] = useDrop<IDragItem, void, { isOver: boolean }>({
-    //     accept: 'TASK',
-    //     hover: (item: IDragItem, monitor: DropTargetMonitor) => {
-    //         if (!ref.current) return
-    //         const dragIndex = item.index;
-    //         const hoverIndex = actualIndex
-    //         if (dragIndex === hoverIndex) return;
-
-    //         dispatch(reorderTasks({ dragIndex, hoverIndex }))
-    //         item.index = hoverIndex
-    //     }
-
-    // })
+    const { data } = useGetTasks();
+    const actualIndex = data?.map(t => t.id === id)
+    const className= getStatusClassColor(priority);
     const [{ isDragging }, drag] = useDrag({
         type: 'TASK',
         item: { id, actualIndex },
@@ -48,26 +25,16 @@ const Task = ({ id, title, description, priority }: ITaskType) => {
         })
     })
     drag(ref)
-    // drag(drop(ref))
-
-    const getStatusClass = (periority: string) => {
-        switch (periority) {
-            case 'HIGH': return '!bg-bg-high !text-text-high';
-            case 'LOW': return '!bg-bg-low !text-text-low';
-            default: return '!bg-bg-medium !text-text-medium';
-        }
-    };
-
 
     return (
         <div
             ref={ref}
+            {...rest}
             style={{
                 opacity: isDragging ? 0 : 1
             }}
-            className="  rounded-2xl mb-3"
+            className="rounded-2xl mb-3"
         >
-
             <Card sx={{ Width: 295 }}>
                 <CardContent>
                     <Typography gutterBottom className="text-text-primary font-regular text-18" >
@@ -79,8 +46,7 @@ const Task = ({ id, title, description, priority }: ITaskType) => {
                     </Typography>
                     <Box className="mt-3">
                         <Stack direction="row" spacing={1} >
-                            <Chip label={priority} className={`!font-semibold [&>.MuiChip-label]:!text-[13px] rounded-md! ${getStatusClass(priority)}`}  />
-
+                            <Chip label={priority} className={`!font-semibold [&>.MuiChip-label]:!text-[13px] rounded-md! ${className}`}  />
                         </Stack>
                         <div >
                            

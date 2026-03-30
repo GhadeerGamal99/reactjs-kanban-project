@@ -1,9 +1,7 @@
 
 import * as z from 'zod';
-import type { columnNameType, taskPeriorityType } from '../types';
+import { COLUMNS, PRIORITIES } from '../consts';
 
-const PRIORITIES = ["HIGH", "LOW", "MEDIUM"] as taskPeriorityType[];
-const COLUMN = [ 'backlog','in_progress','review','done'] as columnNameType[];
 
 export const taskSchema = z.object({
   title: z.string().min(3, "Title must be at  least 3 letters"),
@@ -11,7 +9,7 @@ export const taskSchema = z.object({
  priority: z.enum(PRIORITIES,{
   message: "Priority is required",
 }),
- column: z.enum(COLUMN,{
+ column: z.enum(COLUMNS,{
   message: "Status is required",
 }),
 

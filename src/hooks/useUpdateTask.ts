@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import toast from "react-hot-toast";
 import type { ITaskType } from "../types";
+import api from "../config/axios.config";
 
 export const useUpdateTask = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (updatedTask: ITaskType) => {
-      return axios.patch(`/tasks/${updatedTask.id}`, updatedTask);
+      return api.patch(`/tasks/${updatedTask.id}`, updatedTask);
     },
     onMutate: async (updatedTask) => {
       await queryClient.cancelQueries({ queryKey: ["tasks"] });

@@ -1,100 +1,116 @@
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { addTaskSchema } from '../../schemas/addTaskSchema';
+import { useAddTask } from '../../hooks/useAddTask';
+import { v4 as uuidv4 } from 'uuid';
+import type { columnNameType, ITaskType } from '../../types';
+import { PRIORITIES } from '../../consts';
+import SaveIcon from '@mui/icons-material/Save';
 import {
     FormControl, InputLabel, Select, MenuItem, FormHelperText, Button, CircularProgress
 } from '@mui/material';
-import { taskSchema } from '../../schemas/taskSchema';
-import { useAddTask } from '../../hooks/useAddTask';
-import type { ITaskType } from '../../types';
 
-import { v4 as uuidv4 } from 'uuid';
+interface FormAddTaskProps {
+    onSuccessClose?: () => void;
+    currentColumn: columnNameType;
+}
+const FormAddTask = ({ onSuccessClose, currentColumn }: FormAddTaskProps) => {
 
-
-const FormAddTask = () => {
-
-    type TaskFormData = z.infer<typeof taskSchema>;
-
+    /////////////////////// DATA & STATES /////////////////////////////////
+    type TaskFormData = z.infer<typeof addTaskSchema>;
     const { mutate, isPending } = useAddTask();
-
     const { register, handleSubmit, control, reset, formState: { errors } } = useForm<TaskFormData>({
-        resolver: zodResolver(taskSchema),
+        resolver: zodResolver(addTaskSchema),
     });
+
+    /////////////////////// HANDLERS /////////////////////////////////
 
     const onSubmit = (data: TaskFormData) => {
         const finalTask: ITaskType = {
             ...data,
-            id: uuidv4()
+            id: uuidv4(),
+            column: currentColumn
         };
-
         mutate(finalTask, {
             onSuccess: () => {
                 reset();
+                if (onSuccessClose) onSuccessClose();
             }
         });
     }
-        return (
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4 border rounded-lg">
 
-                <div>
-                    <input
-                        {...register("title")}
-                        placeholder="Task Title"
-                        className={`border p-2 w-full ${errors.title ? 'border-red-500' : ''}`}
-                    />
-                    {errors.title && <span className="text-red-500 text-xs">{errors.title.message}</span>}
-                </div>
-
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-7 border rounded-lg flex flex-col gap-3">
+            <div className='m-0 '>
+                <input
+                    {...register("title")}
+                    placeholder="Task Title"
+                    className={`border p-2 w-full h-[50px]  rounded-md ${errors.title ? 'border-red-500' : ''}`}
+                />
+                {errors.title && <span className="text-red-500 text-xs">{errors.title.message}</span>}
+            </div>
+            <div className='m-0 '>
                 <input
                     {...register("description")}
                     placeholder="Task Description"
-                    className="border p-2 w-full"
+                    className="border p-2 w-full rounded-md h-[50px] m-0 "
                 />
+            </div>
+            <FormControl fullWidth error={!!errors.priority}>
+                <InputLabel sx={{
+                    transform: 'translate(12px, 12px) scale(1)',
+                    color: 'rgba(0, 0, 0, 0.6)',
+                    '&.Mui-focused': {
+                        color: 'rgba(0, 0, 0, 0.6)',
+                    },
+                    '&.MuiInputLabel-shrink': {
+                        transform: 'translate(14px, -6px) scale(0.75)',
+                        '&.Mui-focused': {
+                            color: 'rgba(0, 0, 0, 0.6)',
+                        }
+                    },
+                }}>Priority</InputLabel>
+                <Controller
+                    name="priority"
+                    control={control}
+                    render={({ field }) => (
+                        <Select {...field} label="Priority" sx={{
+                            height: '50px',
+                            borderRadius: '0.375rem',
+                            '& .MuiSelect-select': {
+                                display: 'flex',
+                                textAlign: 'center',
+                            },
 
-                <FormControl fullWidth error={!!errors.priority}>
-                    <InputLabel>Priority</InputLabel>
-                    <Controller
-                        name="priority"
-                        control={control}
-                        render={({ field }) => (
-                            <Select {...field} label="Priority">
-                                <MenuItem value="Low">Low</MenuItem>
-                                <MenuItem value="Medium">Medium</MenuItem>
-                                <MenuItem value="High">High</MenuItem>
-                            </Select>
-                        )}
-                    />
-                    {errors.priority && <FormHelperText>{errors.priority.message}</FormHelperText>}
-                </FormControl>
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#d1d5db',
+                                borderWidth: '1px',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#e5e7eb',
+                                borderWidth: '1px',
+                            },
+                        }}>
+                            {PRIORITIES.map(p => <MenuItem key={p} value={p}>{p}</MenuItem>)}
+                        </Select>
+                    )}
+                />
+                {errors.priority && <FormHelperText>{errors.priority.message}</FormHelperText>}
+            </FormControl>
 
-                <FormControl fullWidth error={!!errors.column}>
-                    <InputLabel>Status</InputLabel>
-                    <Controller
-                        name="column"
-                        control={control}
-                        render={({ field }) => (
-                            <Select {...field} label="column">
-                                <MenuItem value="To Do">To Do</MenuItem>
-                                <MenuItem value="In Progress">In Progress</MenuItem>
-                                <MenuItem value="Done">Done</MenuItem>
-                            </Select>
-                        )}
-                    />
-                    {errors.column && <FormHelperText>{errors.column.message}</FormHelperText>}
-                </FormControl>
+            <Button
+                type="submit"
+                variant="contained"
+                disabled={isPending}
+                className=" bg-blue-600 w-fit !ml-auto"
+                startIcon={<SaveIcon />}
+            >
+                {isPending ? <CircularProgress size={24} color="inherit" /> : 'Save Task'}
+            </Button>
 
-
-                <Button
-                    type="submit"
-                    variant="contained"
-                    disabled={isPending}
-                    className="w-full bg-blue-600"
-                >
-                    {isPending ? <CircularProgress size={24} color="inherit" /> : 'Save Task'}
-                </Button>
-
-            </form>
-        )
-    }
+        </form>
+    )
+}
 
 export default FormAddTask

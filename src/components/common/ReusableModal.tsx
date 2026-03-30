@@ -22,12 +22,12 @@ const style = {
   outline: 'none',
 };
 
-const ReusableModal: React.FC<ReusableModalProps> = ({ 
-  open, 
-  onClose, 
-  title, 
-  children, 
-  width = 400 
+const ReusableModal: React.FC<ReusableModalProps> = ({
+  open,
+  onClose,
+  title,
+  children,
+  width = 400
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
